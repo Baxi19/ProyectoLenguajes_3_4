@@ -53,13 +53,14 @@ public class WindowsAgregarDisponibilidad extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         setSize(new java.awt.Dimension(467, 3));
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().setLayout(null);
 
         jLabelTitle.setBackground(new java.awt.Color(255, 255, 255));
         jLabelTitle.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabelTitle.setForeground(new java.awt.Color(255, 255, 255));
         jLabelTitle.setText("Registrar profesor - dia");
-        getContentPane().add(jLabelTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 320, -1));
+        getContentPane().add(jLabelTitle);
+        jLabelTitle.setBounds(20, 10, 320, 28);
 
         jButtonClose1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/close1.png"))); // NOI18N
         jButtonClose1.setBorder(null);
@@ -80,13 +81,15 @@ public class WindowsAgregarDisponibilidad extends javax.swing.JFrame {
                 jButtonClose1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonClose1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 10, 70, 60));
+        getContentPane().add(jButtonClose1);
+        jButtonClose1.setBounds(370, 10, 70, 60);
 
         jLabelMensaje1.setBackground(new java.awt.Color(255, 255, 255));
         jLabelMensaje1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabelMensaje1.setForeground(new java.awt.Color(255, 255, 255));
         jLabelMensaje1.setText("Seleccione el Profesor y seleccione siguiente");
-        getContentPane().add(jLabelMensaje1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 320, 30));
+        getContentPane().add(jLabelMensaje1);
+        jLabelMensaje1.setBounds(20, 50, 320, 30);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -101,13 +104,15 @@ public class WindowsAgregarDisponibilidad extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 330, 130));
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(20, 80, 330, 130);
 
         jLabelSiguiente.setBackground(new java.awt.Color(255, 255, 255));
         jLabelSiguiente.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabelSiguiente.setForeground(new java.awt.Color(255, 255, 255));
         jLabelSiguiente.setText("Siguiente");
-        getContentPane().add(jLabelSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 150, 70, 30));
+        getContentPane().add(jLabelSiguiente);
+        jLabelSiguiente.setBounds(380, 150, 70, 30);
 
         jButtonAgregarProfesor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/entrar.png"))); // NOI18N
         jButtonAgregarProfesor.setBorder(null);
@@ -128,13 +133,15 @@ public class WindowsAgregarDisponibilidad extends javax.swing.JFrame {
                 jButtonAgregarProfesorActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonAgregarProfesor, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 180, 80, 70));
+        getContentPane().add(jButtonAgregarProfesor);
+        jButtonAgregarProfesor.setBounds(370, 180, 80, 70);
 
         bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Hydrogen.jpg"))); // NOI18N
         bg.setMaximumSize(new java.awt.Dimension(450, 250));
         bg.setMinimumSize(new java.awt.Dimension(450, 250));
         bg.setPreferredSize(new java.awt.Dimension(450, 250));
-        getContentPane().add(bg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(bg);
+        bg.setBounds(0, 0, 450, 250);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -156,6 +163,10 @@ public class WindowsAgregarDisponibilidad extends javax.swing.JFrame {
        }else{
            if(!jTable1.getSelectionModel().isSelectionEmpty()){
                 diaId =(int) jTable1.getValueAt(jTable1.getSelectedRow(), 0);
+                if(Singleton.getInstance().existeDisponibilidad(profesorId, diaId)){
+                    JOptionPane.showMessageDialog(this, "Ya se encuentra esa asociacion");
+                    return ;
+                }
                 try {
                         SQLite.getInstance().agregarDisponibilidad(profesorId, diaId);
                         JOptionPane.showMessageDialog(null, "Relacion de Profesor - Dia agregada correctamente!");

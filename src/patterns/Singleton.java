@@ -150,7 +150,26 @@ public class Singleton {
         System.out.println("(X) Problema al ubicar Imparte id = " + id);
         return null;
     }
-    
+    /*------------------------------------------------------------------------*/
+    //metodo para verificar si ya  disponibilidad por id_profesor y id_dia
+    public Boolean existeDisponibilidad(int idProfesor, int idDia){
+        for (Disponibilidad disponibilidad : listaDisponibilidades) {
+            if(disponibilidad.getProfesor().getId() == idProfesor & disponibilidad.getDia().getId() == idDia){
+                return true;
+            }
+        }
+        return false;
+    }
+    /*------------------------------------------------------------------------*/
+    //metodo para verificar si ya  imparte por id_profesor y id_curso
+    public Boolean existeImparte(int idProfesor, int id_curso){
+        for (Imparte imparte : listaImparte) {
+            if(imparte.getProfesor().getId() == idProfesor & imparte.getCurso().getId() == id_curso){
+                return true;
+            }
+        }
+        return false;
+    }
     /*------------------------------------------------------------------------*/
     //metodo que verifica si existe disponibilidad
     public Boolean verificaHorario(Horario posibleHorario){

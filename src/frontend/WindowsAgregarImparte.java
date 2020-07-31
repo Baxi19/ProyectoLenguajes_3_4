@@ -166,6 +166,10 @@ public class WindowsAgregarImparte extends javax.swing.JFrame {
        }else{
            if(!jTable1.getSelectionModel().isSelectionEmpty()){
                 cursoId =(int) jTable1.getValueAt(jTable1.getSelectedRow(), 0);
+                if(Singleton.getInstance().existeImparte(profesorId, cursoId)){
+                    JOptionPane.showMessageDialog(this, "Ya se encuentra esa asociacion");
+                    return ;
+                }
                 try {
                         SQLite.getInstance().agregarImparte(profesorId, cursoId);
                         JOptionPane.showMessageDialog(null, "Relacion de Profesor - Curso agregada correctamente!");
